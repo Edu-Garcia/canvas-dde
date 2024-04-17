@@ -103,6 +103,9 @@ function clearAll() {
   
   const options = document.getElementById(`${shape.name}-options`);
   options.style.display = 'none';
+
+  const drawShapeButton = document.getElementById('draw-shape');
+  drawShapeButton.style.display = 'none'
   
   clearCanvas();
 }
