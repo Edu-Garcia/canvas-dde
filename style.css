@@ -41,10 +41,68 @@ select {
   border-bottom: 1px solid black;
 }
 
+.shape-options {
+  margin-top: 1rem;
+}
+.shape-options .shape-option {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.shape-options .shape-option .point {
+  display: flex;
+  flex-direction: column;
+}
+
+.shape-options .shape-option .point p {
+  width: min-content;
+}
+
+.move-color {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.move {
+  border-right: 1px solid black;
+}
+
+.color {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.gradient-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+}
+
+.color-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+}
+
+.color-container h2 {
+  margin-bottom: 0;
+}
+
 .title {
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 

@@ -1,5 +1,6 @@
 let shape = null;
-let colors = ['#FF0000', '#ffffff'];
+let degreeRotation = 45;
+let colors = ['#ffffff'];
 
 const defaultShapes = {
   square: {
@@ -28,7 +29,7 @@ const defaultShapes = {
       { x: 500, y: 350 }
     ]
   },
-  circle: { x: 500, y: 500, radius: 200},
+  circle: { name: 'circle', x: 500, y: 500, radius: 200},
 }
 
 const drawDefaultShapes = {
@@ -43,7 +44,7 @@ const ctx = canvas.getContext('2d');
 
 const mappedKeysActions = {
   move: ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'],
-  clear: ['Delete', 'Backspace', 'Escape'],
+  clear: ['Delete', 'Escape'],
   scale: ['+', '-'],
   rotate: ['r', 'R'],
 }
@@ -74,17 +75,55 @@ document.getElementById('shapes-select').addEventListener('keydown', function(ev
   event.preventDefault();
 });
 
+document.querySelectorAll('input').forEach(input => {
+  input.addEventListener('keydown', function(event) {
+    event.stopPropagation();
+  });
+});
+
+function changeColor() {
+  primaryColor = document.getElementById('primary').value;
+  secondaryInput = document.getElementById('secondary');
+  secondaryColor = secondaryInput.value;
+
+  isGradient = document.getElementById('gradient').checked
+  
+  secondaryInput.style.display = isGradient ? 'block' : 'none';
+  colors = isGradient ? [primaryColor, secondaryColor] : [primaryColor];
+  
+  shape.name === 'circle' ? drawCircle(shape) : draw(shape);
+}
+
 function clearAll() {
   const shapes = document.getElementById('shapes-select');
   shapes.value = '';
+
   const actions = document.getElementById('actions-select');
   actions.style.display = 'none';
+  
+  const options = document.getElementById(`${shape.name}-options`);
+  options.style.display = 'none';
+  
   clearCanvas();
 }
 
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   shape = null;
+}
+
+function insertValuesOnFields(points, name, radius = null) {
+  points.forEach((point, index) => {
+    const fieldX = document.getElementById(`${name}-x${index+1}`);
+    const fieldY = document.getElementById(`${name}-y${index+1}`);
+    fieldX.value = point.x;
+    fieldY.value = point.y;
+  })
+
+  if (name === 'circle') {
+    const fieldRadius = document.getElementById(`${name}-radius`);
+    fieldRadius.value = radius; 
+  }
 }
 
 function draw(props) {
@@ -97,6 +136,9 @@ function draw(props) {
   const maxX = Math.max(...points.map(p => p.x));
   const minY = Math.min(...points.map(p => p.y));
   const maxY = Math.max(...points.map(p => p.y));
+
+  // Inserir os pontos nos campos de texto
+  insertValuesOnFields(points, name);
 
   // Cria um gradiente que cobre a forma horizontalmente do ponto mais à esquerda/baixo ao mais à direita/cima
   let gradient = ctx.createLinearGradient(minX, maxY, maxX, minY);
@@ -116,14 +158,16 @@ function draw(props) {
   ctx.closePath();
   ctx.stroke(); 
 
-  shape = { name, points};
+  shape = { name, points };
 }
 
 function drawCircle(props) {
-  const { x, y, radius } = props;
+  const { x, y, radius, name } = props;
 
   clearCanvas();
   
+  insertValuesOnFields([{ x, y }], name, radius);
+
   let gradient = ctx.createRadialGradient(x, y, radius, x, y, 0);
   colors.forEach((color, index) => gradient.addColorStop(index, color));
   
@@ -141,17 +185,45 @@ function drawCircle(props) {
 }
 
 function selectShape() {
-  const shape = document.getElementById('shapes-select').value;
+  const selectedShape = document.getElementById('shapes-select').value;
   const actions = document.getElementById('actions-select');
-  
-  if (shape) {
+  const drawShapeButton = document.getElementById('draw-shape');
+  const optionsContainer = document.getElementById(`${selectedShape}-options`);
+
+  if (shape?.name) {
+    const oldOptions = document.getElementById(`${shape.name}-options`);
+    oldOptions.style.display = 'none';
+  }
+
+  if (selectedShape) {
+    optionsContainer.style.display = 'grid';
     actions.style.display = 'block';
-    drawDefaultShapes[shape]();
+    drawShapeButton.style.display = 'block';
+    drawDefaultShapes[selectedShape]();
   } else {
     actions.style.display = 'none';
+    drawShapeButton.style.display = 'none';
     clearCanvas();
   }
 }
+
+function drawShape() {
+  const selectedShape = document.getElementById('shapes-select').value;
+  const xInputs = document.querySelectorAll(`input[id^=${selectedShape}-x]`);
+  const yInputs = document.querySelectorAll(`input[id^=${selectedShape}-y]`);
+
+  const points = Array.from(xInputs).map((x, index) => (
+    { x: parseFloat(x.value), y: parseFloat(yInputs[index].value) }
+  ));
+
+  if (selectedShape === 'circle') {
+    const radius = parseFloat(document.getElementById(`${selectedShape}-radius`).value);
+    drawCircle({ x: points[0].x, y: points[0].y, radius, name: selectedShape });
+  } else {
+    draw({ points, name: selectedShape });
+  }
+}
+
 
 function move(direction, displacement) {
   if (!shape) {
@@ -190,7 +262,7 @@ function move(direction, displacement) {
           y: shape.y + dy,
           radius: shape.radius,
         };
-        drawCircle(newPoints);
+        drawCircle({ ...newPoints, name: shape.name });
       break;
   }
 }
@@ -226,7 +298,7 @@ function scaleShape(scale) {
         y: shape.y,
         radius: shape.radius * scale,
       };
-      drawCircle(newPoints);
+      drawCircle({ ...newPoints, name });
       break;
   }
 }

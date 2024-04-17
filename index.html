@@ -23,49 +23,138 @@
               <option value="circle">Círculo</option>
               <option value="triangle">Triângulo</option>
             </select>
+            <button id="draw-shape" style="display: none;" onclick="drawShape()">Desenhar</button>
           </h2>
+
+          <div class="shape-options" id="shape-options">
+            <div class="shape-option" id="square-options" style="display: none;">
+              <label for="point">
+                Ponto 1:
+                <p>X: <input type="number" id="square-x1" value="100"></p>
+                <p>Y: <input type="number" id="square-y1" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 2:
+                <p>X: <input type="number" id="square-x2" value="100"></p>
+                <p>Y: <input type="number" id="square-y2" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 3:
+                <p>X: <input type="number" id="square-x3" value="100"></p>
+                <p>Y: <input type="number" id="square-y3" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 4:
+                <p>X: <input type="number" id="square-x4" value="100"></p>
+                <p>Y: <input type="number" id="square-y4" value="100"></p>
+              </label>
+            </div>
+            <div class="shape-option" id="rect-options" style="display: none;">
+              <label for="point">
+                Ponto 1:
+                <p>X: <input type="number" id="rect-x1" value="100"></p>
+                <p>Y: <input type="number" id="rect-y1" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 2:
+                <p>X: <input type="number" id="rect-x2" value="100"></p>
+                <p>Y: <input type="number" id="rect-y2" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 3:
+                <p>X: <input type="number" id="rect-x3" value="100"></p>
+                <p>Y: <input type="number" id="rect-y3" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 4:
+                <p>X: <input type="number" id="rect-x4" value="100"></p>
+                <p>Y: <input type="number" id="rect-y4" value="100"></p>
+              </label>
+            </div>
+            <div class="shape-option" id="circle-options" style="display: none;">
+              <label for="point">
+                Ponto central:
+                <p>X: <input type="number" id="circle-x1" value="100"></p>
+                <p>Y: <input type="number" id="circle-y1" value="100"></p>
+              </label>
+              <label for="circle-radius">
+                Raio: 
+                <p><input type="number" id="circle-radius" value="50"></p>
+              </label>
+            </div>
+            <div class="shape-option" id="triangle-options" style="display: none;">
+              <label for="point">
+                Ponto 1:
+                <p>X: <input type="number" id="triangle-x1" value="100"></p>
+                <p>Y: <input type="number" id="triangle-y1" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 2:
+                <p>X: <input type="number" id="triangle-x2" value="100"></p>
+                <p>Y: <input type="number" id="triangle-y2" value="100"></p>
+              </label>
+              <label for="point">
+                Ponto 3:
+                <p>X: <input type="number" id="triangle-x3" value="100"></p>
+                <p>Y: <input type="number" id="triangle-y3" value="100"></p>
+              </label>
+            </div>
+          </div>
         </div>
         
         <div id="actions-select" style="display: none;">
-          <div class="section">
-            <h2 class="title">Mover</h2>
-            <div class="joystick-container">
-              <div class="joystick">
-                <div>
-                  <div></div>
-                  <button onclick="move('up', 20)" >
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <div></div>
+          <div class="move-color">
+            <div class="move">
+              <h2 class="title">Mover</h2>
+              <div class="joystick-container">
+                <div class="joystick">
+                  <div>
+                    <div></div>
+                    <button onclick="move('up', 20)" >
+                      <i class="fa-solid fa-chevron-up"></i>
+                    </button>
+                    <div></div>
+                  </div>
+                  <div class="lateral-buttons">
+                    <button onclick="move('left', 20)">
+                      <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <div></div>
+                    <button onclick="move('right', 20)">
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                  </div>
+                  <div>
+                    <div></div>
+                    <button onclick="move('down', 20)">
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div></div>
+                  </div>
                 </div>
-                <div class="lateral-buttons">
-                  <button onclick="move('left', 20)">
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </button>
-                  <div></div>
-                  <button onclick="move('right', 20)">
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </button>
-                </div>
-                <div>
-                  <div></div>
-                  <button onclick="move('down', 20)">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                  <div></div>
-                </div>
+              </div>
+            </div>
+            <div class="color">
+              <h2 class="title">Colorir</h2>
+              <div class="color-container">  
+                <input type="color" id="primary" value="#ffffff" onchange="changeColor()">
+                <input type="color" id="secondary" value="#ffffff" style="display: none;" onchange="changeColor()">
+              </div>
+              <div class="gradient-checkbox">
+                <input type="checkbox" id="gradient" onchange="changeColor()"> Gradiente
               </div>
             </div>
           </div>
   
+
           <div class="actions">
             <div class="actions-container">
-              <h2 class="title">Limpar</h2>
-              <button onclick="clearAll()">
-                <i class="fa-solid fa-trash"></i>
+              <h2 class="title">Rotacionar</h2>
+              <button onclick="rotateShape(45)">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
               </button>
             </div>
-  
+
             <div 
               class="actions-container"
               style="border-right: 1px solid black; border-left: 1px solid black; padding: 0 1rem;"
@@ -80,18 +169,10 @@
                 </button>
               </div>
             </div>
-  
             <div class="actions-container">
-              <h2 class="title">Rotacionar</h2>
-              <button onclick="rotateShape(45)">
-                <i class="fa-solid fa-arrow-rotate-right"></i>
-              </button>
-            </div>
-          </div>
-            <div class="actions-container">
-              <h2 class="title">Rotacionar</h2>
-              <button onclick="rotateShape(45)">
-                <i class="fa-solid fa-arrow-rotate-right"></i>
+              <h2 class="title">Limpar</h2>
+              <button onclick="clearAll()">
+                <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           </div>
