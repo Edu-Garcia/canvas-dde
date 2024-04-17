@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas DDE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <canvas id="myCanvas" width="1000px" height="1000px"></canvas>
+
+    <div class="box">    
+      <div class="controls">
+        <!-- Formas -->
+        <div class="section">
+          <h2 class="title">
+            Formas: 
+            <select id="shapes-select" onchange="selectShape()">
+              <option value="">Selecione uma forma</option>
+              <option value="square">Quadrado</option>
+              <option value="rect">Retângulo</option>
+              <option value="circle">Círculo</option>
+              <option value="triangle">Triângulo</option>
+            </select>
+          </h2>
+        </div>
+        
+        <div id="actions-select" style="display: none;">
+          <div class="section">
+            <h2 class="title">Mover</h2>
+            <div class="joystick-container">
+              <div class="joystick">
+                <div>
+                  <div></div>
+                  <button onclick="move('up', 20)" >
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <div></div>
+                </div>
+                <div class="lateral-buttons">
+                  <button onclick="move('left', 20)">
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                  <div></div>
+                  <button onclick="move('right', 20)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+                <div>
+                  <div></div>
+                  <button onclick="move('down', 20)">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="actions">
+            <div class="actions-container">
+              <h2 class="title">Limpar</h2>
+              <button onclick="clearAll()">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+  
+            <div 
+              class="actions-container"
+              style="border-right: 1px solid black; border-left: 1px solid black; padding: 0 1rem;"
+            >
+              <h2 class="title">Zoom</h2>
+              <div>
+                <button onclick="scaleShape(1.1)">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </button>
+                <button onclick="scaleShape(0.9)">
+                  <i class="fa-solid fa-magnifying-glass-minus"></i>
+                </button>
+              </div>
+            </div>
+  
+            <div class="actions-container">
+              <h2 class="title">Rotacionar</h2>
+              <button onclick="rotateShape(45)">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+              </button>
+            </div>
+          </div>
+            <div class="actions-container">
+              <h2 class="title">Rotacionar</h2>
+              <button onclick="rotateShape(45)">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+<script src="script.js" type="text/javascript"></script>

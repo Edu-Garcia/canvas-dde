@@ -1,0 +1,132 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+select {
+  padding: 0.5rem 0.25rem;
+  font-size: 0.8rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem;
+}
+
+.box {
+  display: flex;
+  width: 100%;
+  height: 37.5rem;
+  justify-content: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.joystick-container {
+  display: flex;
+  justify-content: center;
+}
+
+.joystick {
+  width: 9.75rem;
+  height: 9.75rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-items: center;
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 30%;
+}
+
+.joystick button {
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+  border-radius: 40%;
+}
+
+.joystick button i {
+  box-shadow: none;
+}
+
+.joystick div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+} 
+
+.joystick .lateral-buttons button {
+  width: 100%;
+  height: 100%;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.actions-container button {
+  font-size: 1.2rem;
+}
+
+.actions-container button i {
+  box-shadow: none;
+}
+
+#myCanvas {
+  display: flex;
+  border: 1px solid black;
+  width: 800px;
+  height: 800px;
+}
+
+@media (max-height: 53.125rem) {
+  #myCanvas {
+    display: flex;
+    border: 1px solid black;
+    width: 37.5rem;
+    height: 37.5rem;
+  }
+}
+
+@media (max-width: 71.25rem) {
+  .container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
