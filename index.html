@@ -30,73 +30,73 @@
             <div class="shape-option" id="square-options" style="display: none;">
               <label for="point">
                 Ponto 1:
-                <p>X: <input type="number" id="square-x1" value="100"></p>
-                <p>Y: <input type="number" id="square-y1" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="square-x1" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="square-y1" value="100"></p>
               </label>
               <label for="point">
                 Ponto 2:
-                <p>X: <input type="number" id="square-x2" value="100"></p>
-                <p>Y: <input type="number" id="square-y2" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="square-x2" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="square-y2" value="100"></p>
               </label>
               <label for="point">
                 Ponto 3:
-                <p>X: <input type="number" id="square-x3" value="100"></p>
-                <p>Y: <input type="number" id="square-y3" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="square-x3" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="square-y3" value="100"></p>
               </label>
               <label for="point">
                 Ponto 4:
-                <p>X: <input type="number" id="square-x4" value="100"></p>
-                <p>Y: <input type="number" id="square-y4" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="square-x4" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="square-y4" value="100"></p>
               </label>
             </div>
             <div class="shape-option" id="rect-options" style="display: none;">
               <label for="point">
                 Ponto 1:
-                <p>X: <input type="number" id="rect-x1" value="100"></p>
-                <p>Y: <input type="number" id="rect-y1" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="rect-x1" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="rect-y1" value="100"></p>
               </label>
               <label for="point">
                 Ponto 2:
-                <p>X: <input type="number" id="rect-x2" value="100"></p>
-                <p>Y: <input type="number" id="rect-y2" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="rect-x2" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="rect-y2" value="100"></p>
               </label>
               <label for="point">
                 Ponto 3:
-                <p>X: <input type="number" id="rect-x3" value="100"></p>
-                <p>Y: <input type="number" id="rect-y3" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="rect-x3" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="rect-y3" value="100"></p>
               </label>
               <label for="point">
                 Ponto 4:
-                <p>X: <input type="number" id="rect-x4" value="100"></p>
-                <p>Y: <input type="number" id="rect-y4" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="rect-x4" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="rect-y4" value="100"></p>
               </label>
             </div>
             <div class="shape-option" id="circle-options" style="display: none;">
               <label for="point">
                 Ponto central:
-                <p>X: <input type="number" id="circle-x1" value="100"></p>
-                <p>Y: <input type="number" id="circle-y1" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="circle-x1" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="circle-y1" value="100"></p>
               </label>
               <label for="circle-radius">
                 Raio: 
-                <p><input type="number" id="circle-radius" value="50"></p>
+                <p><input type="number" onblur="verify()" id="circle-radius" value="50"></p>
               </label>
             </div>
             <div class="shape-option" id="triangle-options" style="display: none;">
               <label for="point">
                 Ponto 1:
-                <p>X: <input type="number" id="triangle-x1" value="100"></p>
-                <p>Y: <input type="number" id="triangle-y1" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="triangle-x1" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="triangle-y1" value="100"></p>
               </label>
               <label for="point">
                 Ponto 2:
-                <p>X: <input type="number" id="triangle-x2" value="100"></p>
-                <p>Y: <input type="number" id="triangle-y2" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="triangle-x2" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="triangle-y2" value="100"></p>
               </label>
               <label for="point">
                 Ponto 3:
-                <p>X: <input type="number" id="triangle-x3" value="100"></p>
-                <p>Y: <input type="number" id="triangle-y3" value="100"></p>
+                <p>X: <input type="number" onblur="verify()" id="triangle-x3" value="100"></p>
+                <p>Y: <input type="number" onblur="verify()" id="triangle-y3" value="100"></p>
               </label>
             </div>
           </div>
@@ -150,15 +150,15 @@
           <div class="actions">
             <div class="actions-container">
               <h2 class="title">Rotacionar</h2>
-              <button onclick="rotateShape(45)">
+              <button id="rotate-shape" onclick="rotateShape()">
                 <i class="fa-solid fa-arrow-rotate-right"></i>
               </button>
+              <p class="input-degrees">
+                Graus: <input id="input-degrees" type="number" style="width: 50%;" value="45" onblur="changeRotation()" >
+              </p>
             </div>
 
-            <div 
-              class="actions-container"
-              style="border-right: 1px solid black; border-left: 1px solid black; padding: 0 1rem;"
-            >
+            <div class="actions-container zoom">
               <h2 class="title">Zoom</h2>
               <div>
                 <button onclick="scaleShape(1.1)">

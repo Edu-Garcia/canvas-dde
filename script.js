@@ -61,7 +61,7 @@ function actionKey(key) {
     const scale = 1 + parseFloat(`${key}0.1`)
     scaleShape(scale);
   } else if (mappedKeysActions.rotate.includes(key)) {
-    rotateShape(10);
+    rotateShape();
   }
 }
 
@@ -207,6 +207,24 @@ function selectShape() {
   }
 }
 
+function verify() {
+  let disabled = false;
+  const selectedShape = document.getElementById('shapes-select').value;
+  const xInputs = document.querySelectorAll(`input[id^=${selectedShape}-x]`);
+  const yInputs = document.querySelectorAll(`input[id^=${selectedShape}-y]`);
+
+  xInputs.forEach((x, index) => {
+    if (!x.value || !yInputs[index].value) disabled = true;
+  });
+
+  if (selectedShape === 'circle') {
+    const radius = parseFloat(document.getElementById(`${selectedShape}-radius`).value);
+    if (!radius) disabled = true;
+  }
+
+  document.getElementById('draw-shape').disabled = disabled;
+}
+
 function drawShape() {
   const selectedShape = document.getElementById('shapes-select').value;
   const xInputs = document.querySelectorAll(`input[id^=${selectedShape}-x]`);
@@ -303,6 +321,14 @@ function scaleShape(scale) {
   }
 }
 
+function changeRotation() {
+  value = document.getElementById('input-degrees').value;
+  button = document.getElementById('rotate-shape');
+
+  button.disabled = !value;
+  degreeRotation = value || 0;
+}
+
 function rotatePoint(px, py, centerX, centerY, degrees) {
     let radians = degrees * Math.PI / 180;
     
@@ -315,7 +341,7 @@ function rotatePoint(px, py, centerX, centerY, degrees) {
     return {x: nx, y: ny};
 }
 
-function rotateShape(degrees) {
+function rotateShape() {
   if (!shape || shape.name === 'circle') {
     return;
   }
@@ -323,7 +349,7 @@ function rotateShape(degrees) {
   let center = findCenter();
   let { points, name } = shape;
 
-  const vertices = points.map(p => rotatePoint(p.x, p.y, center.x, center.y, degrees));
+  const vertices = points.map(p => rotatePoint(p.x, p.y, center.x, center.y, degreeRotation));
   draw({ points: vertices, name });
 }
 

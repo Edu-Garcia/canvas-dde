@@ -47,6 +47,7 @@ select {
 .shape-options .shape-option {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-items: center;
   gap: 1rem;
 }
 
@@ -164,6 +165,19 @@ select {
 
 .actions-container button i {
   box-shadow: none;
+}
+
+.actions-container.zoom {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  padding: 0 1rem;
+}
+
+.input-degrees {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
 }
 
 #myCanvas {
