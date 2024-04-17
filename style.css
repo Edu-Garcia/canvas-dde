@@ -130,8 +130,9 @@ select {
   border-radius: 40%;
 }
 
-.joystick button i {
-  box-shadow: none;
+.joystick button img {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .joystick div {
@@ -163,8 +164,9 @@ select {
   font-size: 1.2rem;
 }
 
-.actions-container button i {
-  box-shadow: none;
+.actions-container button img {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .actions-container.zoom {

@@ -131,16 +131,13 @@ function draw(props) {
 
   clearCanvas();
 
-  // Calculando os extremos para o gradiente
   const minX = Math.min(...points.map(p => p.x));
   const maxX = Math.max(...points.map(p => p.x));
   const minY = Math.min(...points.map(p => p.y));
   const maxY = Math.max(...points.map(p => p.y));
 
-  // Inserir os pontos nos campos de texto
   insertValuesOnFields(points, name);
 
-  // Cria um gradiente que cobre a forma horizontalmente do ponto mais à esquerda/baixo ao mais à direita/cima
   let gradient = ctx.createLinearGradient(minX, maxY, maxX, minY);
   colors.forEach((color, index) => gradient.addColorStop(index, color));
 
@@ -215,11 +212,19 @@ function verify() {
 
   xInputs.forEach((x, index) => {
     if (!x.value || !yInputs[index].value) disabled = true;
+    
+    if (x.value <= 0) x.value = 0
+    if (yInputs[index].value <= 0) yInputs[index].value = 0
+    
+    if (x.value > 1000) x.value = 1000
+    if (yInputs[index].value > 1000) yInputs[index].value = 1000
   });
 
   if (selectedShape === 'circle') {
-    const radius = parseFloat(document.getElementById(`${selectedShape}-radius`).value);
-    if (!radius) disabled = true;
+    const radius = document.getElementById(`${selectedShape}-radius`);
+    if (!radius.value) disabled = true;
+    if (radius.value <= 0) radius.value = 0
+    if (radius.value > 500) radius.value = 500
   }
 
   document.getElementById('draw-shape').disabled = disabled;
@@ -231,11 +236,11 @@ function drawShape() {
   const yInputs = document.querySelectorAll(`input[id^=${selectedShape}-y]`);
 
   const points = Array.from(xInputs).map((x, index) => (
-    { x: parseFloat(x.value), y: parseFloat(yInputs[index].value) }
+    { x: Math.round(x.value), y: Math.round(yInputs[index].value) }
   ));
 
   if (selectedShape === 'circle') {
-    const radius = parseFloat(document.getElementById(`${selectedShape}-radius`).value);
+    const radius = Math.round(document.getElementById(`${selectedShape}-radius`).value);
     drawCircle({ x: points[0].x, y: points[0].y, radius, name: selectedShape });
   } else {
     draw({ points, name: selectedShape });
@@ -271,14 +276,14 @@ function move(direction, displacement) {
     case 'square':
     case 'rect':
     case 'triangle':
-        newPoints = shape.points.map(p => ({ x: p.x + dx, y: p.y + dy }));
+        newPoints = shape.points.map(p => ({ x: Math.round(p.x + dx), y: Math.round(p.y + dy) }));
         draw({ points: newPoints, name: shape.name});
       break;
     case 'circle':
         newPoints = {
-          x: shape.x + dx,
-          y: shape.y + dy,
-          radius: shape.radius,
+          x: Math.round(shape.x + dx),
+          y: Math.round(shape.y + dy),
+          radius: Math.round(shape.radius),
         };
         drawCircle({ ...newPoints, name: shape.name });
       break;
@@ -289,8 +294,8 @@ function scalePoint(px, py, centerX, centerY, scale) {
     let dx = px - centerX;
     let dy = py - centerY;
     return {
-        x: centerX + dx * scale,
-        y: centerY + dy * scale
+        x: Math.round(centerX + dx * scale),
+        y: Math.round(centerY + dy * scale)
     };
 }
 
@@ -312,9 +317,9 @@ function scaleShape(scale) {
       break;
     case 'circle':
       newPoints = {
-        x: shape.x,
-        y: shape.y,
-        radius: shape.radius * scale,
+        x: Math.round(shape.x),
+        y: Math.round(shape.y),
+        radius: Math.round(shape.radius * scale),
       };
       drawCircle({ ...newPoints, name });
       break;
@@ -338,7 +343,7 @@ function rotatePoint(px, py, centerX, centerY, degrees) {
     let nx = (cos * (px - centerX)) - (sin * (py - centerY)) + centerX;
     let ny = (sin * (px - centerX)) + (cos * (py - centerY)) + centerY;
 
-    return {x: nx, y: ny};
+    return {x: Math.round(nx), y: Math.round(ny)};
 }
 
 function rotateShape() {
@@ -358,5 +363,5 @@ function findCenter() {
   const xv = shape.points.reduce((acc, p) => acc + p.x, 0) / length;
   const yv = shape.points.reduce((acc, p) => acc + p.y, 0) / length;
 
-  return { x: xv, y: yv };
+  return { x: Math.round(xv), y: Math.round(yv) };
 }
